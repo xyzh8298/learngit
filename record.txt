@@ -1,0 +1,28 @@
+一、新建版本库/仓库repository
+	创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录：
+	$ mkdir learngit
+	$ cd learngit
+	$ pwd
+	/Users/michael/learngit
+	
+	/*如果你使用Windows系统，为了避免遇到各种莫名其妙的问题，请确保目录名（包括父目录）不包含中文。*/
+	
+	第二步，通过git init命令把这个目录变成Git可以管理的仓库：
+	$ git init
+	Initialized empty Git repository in /Users/michael/learngit/.git/
+	
+	如果你没有看到.git目录，那是因为这个目录默认是隐藏的，用ls -ah命令就可以看见。
+	
+二、把文件添加到版本库
+	以本文"record.txt"为例如何将该文件添加到仓库里面？
+	前提：一定要放到learngit目录下（子目录也行），因为这是一个Git仓库，放到其他地方Git再厉害也找不到这个文件。
+	第一步，用命令git add告诉Git，把文件添加到仓库：
+	$ git add readme.txt
+	
+	第二步，用命令git commit告诉Git，把文件提交到仓库：
+	$ git commit -m "wrote a readme file"
+	[master (root-commit) cb926e7] wrote a readme file
+	1 file changed, 2 insertions(+)
+	create mode 100644 readme.txt
+	
+	
