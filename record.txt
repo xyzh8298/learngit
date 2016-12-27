@@ -39,8 +39,8 @@
 	初始化一个Git仓库，使用git init命令。
 
 	添加文件到Git仓库，分两步：
-    第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
-    第二步，使用命令git commit，完成。
+	第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+	第二步，使用命令git commit，完成。
 	
 三、如何查看文件的修改状态
 	查看仓库当前的状态：git status
@@ -89,10 +89,8 @@
 	$ git commit -m "wrote a record file"
 	
 	小结(2016-12-26):
-
-    要随时掌握工作区的状态，使用git status命令。
-
-    如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+	要随时掌握工作区的状态，使用git status命令。
+	如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
 
 四、如何版本回退
 	查看版本LOG日志：git log
@@ -133,9 +131,9 @@
 	ad45fa6 HEAD@{1}: commit (initial): wrote a record file
 	
 	小结(2016-12-27)
-    HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
-    穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
-    要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+	HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+	穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+	要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
 
 五、概念：工作区和暂存区
 	Git和其他版本控制系统如SVN的一个不同之处就是有暂存区的概念。
@@ -229,9 +227,9 @@
 	另一个办法是自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人也是看不见的
 	
 	小结(2016-12-27):
-		怎样搭建本地git仓库与GitHub仓库环境？
-		注册账号设置SSH Key,命令：$ ssh-keygen -t rsa -C "youremail@example.com"
-		将id_rsa_pub的内容添加到GitHub的settings中。
+	怎样搭建本地git仓库与GitHub仓库环境？
+	注册账号设置SSH Key,命令：$ ssh-keygen -t rsa -C "youremail@example.com"
+	将id_rsa_pub的内容添加到GitHub的settings中。
 	
 九、远程仓库--添加远程库
 	情景：已经在本地创建了一个Git仓库后，又想在GitHub创建一个Git仓库，并且让这两个仓库进行远程同步，
