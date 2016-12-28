@@ -281,3 +281,113 @@
 	实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。
 	使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，
 	但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+
+十一、分支管理--创建与合并分支
+	分支在实际中有什么用呢？
+	假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，
+	如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。
+	如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。
+	现在有了分支，就不用怕了。
+	你创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，
+	直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。
+	
+	原理解释：
+	截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即master分支。
+	HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。
+	
+	情景：
+	当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上。
+	从现在开始，对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变。
+	假如我们在dev上的工作完成了，就可以把dev合并到master上。
+	Git怎么合并呢？最简单的方法，就是直接把master指向dev的当前提交，就完成了合并。
+	所以Git合并分支也很快！就改改指针，工作区内容也不变！
+	合并完分支后，甚至可以删除dev分支。删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支。
+	
+	实战：
+	首先，我们创建dev分支，然后切换到dev分支：
+	$ git checkout -b dev
+	Switched to a new branch 'dev'
+	/*git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：*/
+	$ git branch dev
+	$ git checkout dev
+	Switched to branch 'dev'
+	
+	然后，用git branch命令查看当前分支：
+	$ git branch
+	* dev
+	  master
+	/*git branch命令会列出所有分支，当前分支前面会标一个*号。*/
+	
+	然后，我们就可以在dev分支上正常提交，比如对test.txt做个修改，加上一行：
+	Creating a new branch is puick.
+	
+	然后提交：
+	$ git add test.txt 
+	$ git commit -m "branch test"
+	[dev fec145a] branch test
+	 1 file changed, 1 insertion(+)
+		
+	现在，dev分支的工作完成，我们就可以切换回master分支：
+	$ git checkout master
+	Switched to branch 'master'
+	切换回master分支后，再查看一个readme.txt文件，刚才添加的内容不见了！
+	因为那个提交是在dev分支上，而master分支此刻的提交点并没有变.
+	
+	现在，我们把dev分支的工作成果合并到master分支上：
+	$ git merge dev
+	Updating d17efd8..fec145a
+	Fast-forward
+	 readme.txt |    1 +
+	 1 file changed, 1 insertion(+)
+	git merge命令用于合并指定分支到当前分支。
+	合并后，再查看test.txt的内容，就可以看到，和dev分支的最新提交是完全一样的。	
+	注意到上面的Fast-forward信息，Git告诉我们，这次合并是“快进模式”，
+	也就是直接把master指向dev的当前提交，所以合并速度非常快。
+	
+	合并完成后，就可以放心地删除dev分支了：
+	$ git branch -d dev
+	Deleted branch dev (was fec145a).
+	
+	删除后，查看branch，就只剩下master分支了：
+	$ git branch
+	* master
+	
+	因为创建、合并和删除分支非常快，
+	所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。
+	
+	小结(2016-12-28)：
+	Git 鼓励大家大量使用分支。
+	命令集：
+	查看分支：git branch
+	创建分支：git branch <name>
+	切换分支：git checkout <name>
+	创建+切换分支：git checkout -b <name>
+	合并某分支到当前分支：git merge <name>
+	删除分支：git branch -d <name>
+	
+十二、分支管理--解决冲突
+	情景：当创建一个分支时，并对某一个文件内容进行了修改；然后在master分支中也对此文件的同一内容做了修改。
+	master分支与新创建的分支分别提交，这时文件存在冲突，需要手动解决冲突。
+	
+	查看冲突文件：git status
+	查看分支合并情况：git log --graph   如：$ git log --graph --pretty=oneline --abbrev-commit
+	
+十三、分支管理--分支管理策略
+	之前介绍了用Fast forward模式合并分支。现在实战一下:--no-ff方式的git merge。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	

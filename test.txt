@@ -2,3 +2,4 @@ git first program;
 hello world;
 test git checkout function.
 Creating a new branch is puick.
+Creating a new branch is --no-ff.
