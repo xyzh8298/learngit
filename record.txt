@@ -374,19 +374,30 @@
 	
 十三、分支管理--分支管理策略
 	之前介绍了用Fast forward模式合并分支。现在实战一下:--no-ff方式的git merge。
+	
+	首先我，创建并切换dev分支，修改test.txt文件内容并提交新的commit:
+	$ git checkout -b dev
+	$ git add test.txt
+	$ git commit -m "add merge"
 
+	然后，切换回到master:
+	$ git checkout master
 
+	然后，准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：
+	$ git merge --no-ff -m "merge with no-ff" dev
+	/*因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述"merge with no-ff"写进去。*/
 
+	最后，合并后，用git log查看分支历史：
+	$ git log --graph --pretty=oneline --abbrev-commit
 
+	小结(2016-12-28)：
+	在实际开发中，应该按照几个基本原则进行分支管理：
+	首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+	干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，
+	再把dev分支合并到master上，在master分支发布1.0版本；
 
-
-
-
-
-
-
-
-
+	合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，
+	而fast forward合并就看不出来曾经做过合并。
 
 
 	
